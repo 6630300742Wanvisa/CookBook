@@ -1,0 +1,218 @@
+/* ตั้งค่าพื้นหลังและให้กล่องล็อกอินอยู่ตรงกลาง */
+body {
+    background-color: #127b5d;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* เต็มจอ */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+html, body {
+    overflow-x: hidden; /* ปิดการเลื่อนแนวนอน */
+    width: 100%;
+}
+
+.navbar {
+    width: 90%;  /* ให้ Navbar กว้าง 90% ของหน้าจอ */
+    max-width: 1200px;  /* จำกัดความกว้างสูงสุด */
+    background-color: white; /* สีพื้นหลัง Navbar */
+    border-radius: 20px; /* มุมโค้งมน */
+    padding: 10px 20px; /* ระยะขอบใน */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* เงา */
+    margin: 20px auto; /* จัดให้อยู่ตรงกลาง */
+}
+
+/* Logo */
+.navbar .logo1 {
+    width: 65px;
+    height: 65px;
+    
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 8px 12px;
+    border-radius: 25px;
+    flex-grow: 1; /* ขยายให้พอดีกับพื้นที่ */
+    margin-right: 8px;
+    
+    /* เพิ่มเส้นขอบ */
+    border: 2px solid #ccc;
+    
+    /* เพิ่มเงาให้ดูมีมิติ */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    font-size: 16px;
+    width: 100%;
+    background: transparent; /* ให้พื้นหลังโปร่งใส */
+    padding: 5px;
+}
+
+.nav-button {
+    align-items: center;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 8px 16px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.nav-button:hover {
+    background-color: #f0f0f0;
+}
+
+.nav-button .icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px; /* ระยะห่างระหว่างไอคอนกับข้อความ */
+}
+
+/* Login Link */
+.navbar .login-link a {
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.navbar .login-link a:hover {
+    text-decoration: underline;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-box {
+    background: white;
+    width: 885px; 
+    height: 630px; 
+    padding: 40px;
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.login-box label {
+    width: 85%;
+    text-align: left;
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.login-box h2 {
+    position: absolute;
+    top: 180px; 
+    left: 577px; 
+    font-size: 32px;
+    margin-bottom: 10px;
+    text-align: left;
+    font-weight: bold;
+    display: block;
+}
+.login-box p {
+    position: absolute;
+    top: 255px; 
+    left: 578px; 
+    text-align: left;
+    width: 85%;
+    display: block;
+}
+
+.login-box .logo2{
+    position: absolute;
+    top: 210px; /* ขยับขึ้นไปเหนือกล่องเล็กน้อย */
+    right: 580px; /* ขยับไปมุมขวา */
+    width: 90px; /* ปรับขนาดโลโก้ */
+    height: 90px;
+}
+
+/* ช่องป้อนข้อมูล */
+.login-box input {
+    width: 80%;
+    padding: 15px;
+    margin: 15px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.login-box input:focus {
+    border: 1px solid #4caf50;
+    outline: none;
+    box-shadow: 0px 0px 5px #4caf50;
+}
+
+/* ปุ่มล็อกอิน */
+.login-box button {
+    width: 85%;
+    background: #4caf50;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.login-box button:hover {
+    background: #45a049;
+}
+
+/* ลิงก์สมัครสมาชิก */
+.register-link {
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+.register-link a {
+    color: #2e8b57;
+    text-decoration: none;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.logo2 {
+    width: 80px; /* ปรับขนาดตามต้องการ */
+    height: auto;
+    animation: bounce 1s infinite alternate ease-in-out;
+}

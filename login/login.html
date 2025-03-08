@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <img src="logo.png" alt="Logo" class="logo1">
+        <div class="search-bar">
+            <input type="text" placeholder="ค้นหา......">
+        </div>
+        <div class="menu">
+            <button class="nav-button" onclick="goHome()">
+                <img src="home-icon.png" alt="Home" class="icon"> หน้าหลัก</button>
+            <button class="nav-button" onclick="goFavorites()">
+                <img src="favorites-icon.png" alt="favorites" class="icon"> รายการโปรด</button>
+            <button class="nav-button" onclick="goHistory()">
+                <img src="history-icon.png" alt="History" class="icon"> ประวัติ</button>
+        </div>
+    </div>
+
+
+    <div class="login-box">
+
+        <h2>เข้าสู่ระบบ</h2>
+        <p>Login</p>
+        <img src="logo.png" alt="Logo" class="logo2">
+        
+        
+        <label for="username">ชื่อผู้ใช้งาน</label>
+        <input type="text" id="username">
+    
+        <label for="password">รหัสผ่าน</label>
+        <input type="password" id="password">
+        
+        <button>เข้าสู่ระบบ</button>
+        
+        <p1 class="register-link">ถ้ายังไม่มีบัญชี <a href="register.html">กดสมัครเลย</a></p1>
+    </div>
+    
+
+    <script src="script.js"></script>
+
+</body>
+</html>
