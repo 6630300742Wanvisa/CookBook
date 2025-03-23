@@ -1,0 +1,20 @@
+{
+  "name": "cookbook-3",
+  "version": "1.0.0",
+  "description": "import tkinter as tk\r from tkinter import ttk",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/6630300742Wanvisa/CookBook.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/6630300742Wanvisa/CookBook/issues"
+  },
+  "homepage": "https://github.com/6630300742Wanvisa/CookBook#readme"
+}

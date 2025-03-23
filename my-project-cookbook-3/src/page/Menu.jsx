@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Headbar from "../component/Headbar";
+import RecipeModal from "../component/Popup/RecipeModal.jsx"; // Import Modal สำหรับ Recipe
 
 export default function Menu() {
     const categories = [
@@ -15,21 +16,49 @@ export default function Menu() {
     ];
 
     const allMenuItems = [
-        { id: 1, name: "ข้าวผัดไข่", img: "/images/rice_egg.jpg", category: "thai" },
-        { id: 2, name: "กะเพราไข่ดาว", img: "/images/krapow.jpg", category: "thai" },
-        { id: 3, name: "ขนมหวาน", img: "/images/dessert.jpg", category: "dessert" },
-        { id: 4, name: "น้ำหวาน", img: "/images/drink.jpg", category: "drink" },
-        { id: 5, name: "สลัด", img: "/images/salad.jpg", category: "salad" },
-        { id: 6, name: "สเต็ก", img: "/images/steak.jpg", category: "western" }
+        { 
+            id: 1, 
+            name: "ข้าวผัดไข่", 
+            img: "/images/rice_egg.jpg", 
+            category: "thai", 
+            favorite: true,
+            time: 10, // เวลาทำอาหาร (นาที)
+            serves: 1, // จำนวนที่เสิร์ฟ
+            ingredients: ["ข้าวสวย 1 ถ้วย", "ไข่ไก่ 1 ฟอง", "ซีอิ๊วขาว 1 ช้อนโต๊ะ", "น้ำมันพืช 1 ช้อนโต๊ะ"],
+            steps: ["ตั้งกระทะใส่น้ำมัน", "ตอกไข่ลงไปผัด", "ใส่ข้าวและปรุงรส", "ผัดให้เข้ากันและเสิร์ฟ"]
+        },
+        { 
+            id: 2, 
+            name: "กะเพราไข่ดาว", 
+            img: "/images/krapow.jpg", 
+            category: "thai", 
+            favorite: false,
+            time: 15,
+            serves: 1,
+            ingredients: ["เนื้อหมู 100 กรัม", "ใบกะเพรา", "พริก", "ซีอิ๊วขาว", "น้ำมันหอย"],
+            steps: ["ตั้งกระทะ", "ผัดพริกกับเนื้อหมู", "ปรุงรส", "ใส่ใบกะเพรา", "เสิร์ฟพร้อมไข่ดาว"]
+        },
+        { 
+            id: 3, 
+            name: "ขนมหวาน", 
+            img: "/images/dessert.jpg", 
+            category: "dessert", 
+            favorite: true,
+            time: 20,
+            serves: 2,
+            ingredients: ["แป้ง", "น้ำตาล", "ไข่", "นม"],
+            steps: ["ผสมแป้งกับน้ำตาล", "ใส่ไข่และนม", "นำเข้าเตาอบ", "เสิร์ฟ"]
+        },
     ];
 
     const [selectedCategory, setSelectedCategory] = useState("all");
+    const [selectedRecipe, setSelectedRecipe] = useState(null); // เก็บเมนูที่ถูกเลือก
 
     const filteredMenu =
         selectedCategory === "all"
             ? allMenuItems
             : selectedCategory === "favorite"
-            ? allMenuItems.filter((item) => item.favorite)
+            ? allMenuItems.filter((item) => item.favorite) // กรองเฉพาะเมนูโปรด
             : allMenuItems.filter((item) => item.category === selectedCategory);
 
     return (
@@ -50,7 +79,11 @@ export default function Menu() {
 
                 <div className="grid grid-cols-3 gap-6 place-items-center">
                     {filteredMenu.map((item) => (
-                        <div key={item.id} className="bg-[#F6FCFF] border border-[#C5E1E6] p-4 rounded-lg shadow-lg w-60 h-60 flex flex-col items-center">
+                        <div
+                            key={item.id}
+                            className="bg-[#F6FCFF] border border-[#C5E1E6] p-4 rounded-lg shadow-lg w-60 h-60 flex flex-col items-center cursor-pointer"
+                            onClick={() => setSelectedRecipe(item)} // เมื่อกด จะเซ็ตค่าเมนูที่เลือก
+                        >
                             <img src={item.img} alt={item.name} className="w-48 h-32 object-cover rounded-lg" />
                             <p className="text-center mt-2 text-[#3A6D82] font-semibold">{item.name}</p>
                         </div>
@@ -66,6 +99,11 @@ export default function Menu() {
                         ))}
                 </div>
             </div>
+
+            {/* แสดง RecipeModal ถ้ามีเมนูถูกเลือก */}
+            {selectedRecipe && (
+                <RecipeModal recipe={selectedRecipe} onClose={() => setSelectedRecipe(null)} />
+            )}
         </div>
     );
 }
