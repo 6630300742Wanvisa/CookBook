@@ -2,6 +2,10 @@ import { useState } from "react";
 import { FaTrash, FaPlus, FaSave, FaTimes, FaTag, FaUser, FaClock } from "react-icons/fa";
 
 export default function EditRecipe({ onClose }) {
+    const [title, setTitle] = useState("");
+    const [category, setCategory] = useState("");
+    const [imageUrl, setImageUrl] = useState("");
+
     const [ingredients, setIngredients] = useState([""]);
     const [steps, setSteps] = useState([""]);
 
@@ -16,16 +20,42 @@ export default function EditRecipe({ onClose }) {
         setSteps(steps.filter((_, i) => i !== index));
     };
 
+    const handleSave = async () => {
+        const recipe = {
+            title,
+            ingredients,
+            instructions: steps,
+            category,
+            image_url: imageUrl,
+        };
+
+        try {
+            const res = await fetch("http://localhost:8000/recipes", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(recipe),
+            });
+
+            const data = await res.json();
+            console.log(data);
+            alert("บันทึกสำเร็จ!");
+            onClose();
+        } catch (err) {
+            console.error("เกิดข้อผิดพลาด:", err);
+            alert("บันทึกล้มเหลว!");
+        }
+    };
+
     return (
         <div className="fixed inset-0  bg-opacity-10  flex items-center justify-center ">
             <div className="w-[700px] p-6 rounded-2xl bg-white shadow-lg relative">
-                
-                
                 {/* เมนูและอัปโหลดรูปภาพ */}
                 <div className="flex justify-between items-center mb-4">
                     <input
                         type="text"
                         placeholder="ชื่อเมนู"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
                         className="border border-gray-300 rounded-lg p-2 w-2/3"
                     />
                     <div className="flex gap-2">
@@ -39,8 +69,11 @@ export default function EditRecipe({ onClose }) {
                     <div className="flex gap-4">
                         <div className="flex items-center gap-2">
                             <FaTag />
-                            <select className="border rounded-lg p-2">
-                                <option>เลือกหมวดหมู่</option>
+                            <select className="border rounded-lg p-2" value={category} onChange={(e) => setCategory(e.target.value)}>
+                                <option value="">เลือกหมวดหมู่</option>
+                                <option value="อาหารไทย">อาหารไทย</option>
+                                <option value="อาหารเอเชีย">อาหารเอเชีย</option>
+                                <option value="อาหารตะวันตก">อาหารตะวันตก</option>
                             </select>
                         </div>
                         <div className="flex items-center gap-2">
@@ -58,12 +91,18 @@ export default function EditRecipe({ onClose }) {
                 <div className="border rounded-lg p-4 mb-4">
                     <h3 className="font-semibold mb-2">ส่วนผสม</h3>
                     <div className="grid grid-cols-3 gap-4">
-                        {ingredients.map((_, index) => (
+                        {ingredients.map((item, index) => (
                             <div key={index} className="flex items-center gap-2">
                                 <input
                                     type="text"
                                     className="border rounded-lg p-2 w-full"
                                     placeholder="ใส่ส่วนผสม..."
+                                    value={item}
+                                    onChange={(e) => {
+                                        const updated = [...ingredients];
+                                        updated[index] = e.target.value;
+                                        setIngredients(updated);
+                                    }}
                                 />
                                 <button className="text-red-500" onClick={() => removeIngredient(index)}>
                                     <FaTrash />
@@ -79,12 +118,18 @@ export default function EditRecipe({ onClose }) {
                 {/* ขั้นตอนการทำ */}
                 <div className="border rounded-lg p-4 mb-4">
                     <h3 className="font-semibold mb-2">ขั้นตอน</h3>
-                    {steps.map((_, index) => (
+                    {steps.map((step, index) => (
                         <div key={index} className="flex gap-2 mb-2">
                             <input
                                 type="text"
                                 className="border rounded-lg p-2 w-full"
                                 placeholder="ใส่ขั้นตอน..."
+                                value={step}
+                                onChange={(e) => {
+                                    const updated = [...steps];
+                                    updated[index] = e.target.value;
+                                    setSteps(updated);
+                                }}
                             />
                             <button className="text-red-500" onClick={() => removeStep(index)}>
                                 <FaTrash />
@@ -98,12 +143,10 @@ export default function EditRecipe({ onClose }) {
 
                 {/* ปุ่ม Save, Cancel, Delete */}
                 <div className="flex justify-between">
-                    <button className="bg-blue-500 text-white px-4 py-2 rounded-lg flex items-center gap-1">
+                    <button className="bg-blue-500 text-white px-4 py-2 rounded-lg flex items-center gap-1" onClick={handleSave}>
                         <FaSave /> Save
                     </button>
-                    <button 
-                            className="bg-gray-300 text-black px-4 py-2 rounded-lg flex items-center gap-1 hover:bg-gray-400" 
-                            onClick={onClose}>
+                    <button className="bg-gray-300 text-black px-4 py-2 rounded-lg flex items-center gap-1 hover:bg-gray-400" onClick={onClose}>
                         <FaTimes /> Cancel
                     </button>
                     <button className="bg-red-500 text-white px-4 py-2 rounded-lg flex items-center gap-1">
