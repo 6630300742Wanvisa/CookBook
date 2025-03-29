@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Headbar from "../component/Headbar";
-import RecipeModal from "../component/Popup/RecipeModal.jsx"; // Import Modal สำหรับ Recipe
+import RecipeModal from "../Popup/RecipeModal.jsx"; // Import Modal สำหรับ Recipe
 
 export default function Menu() {
     const categories = [

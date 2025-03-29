@@ -1,9 +1,8 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
+import { defineConfig } from "vite";
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [tailwindcss(), react()
-  ],
-})
+  server: {
+    host: true,  // ให้สามารถเข้าถึงจากภายนอกได้
+    port: 5173,  // กำหนดพอร์ตให้แน่นอน
+  }
+ });
